@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Физика и астрономия | Христинка Божикова</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0e17;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #1a202c;
+            --text-muted: #4a5568;
+            
+            /* Цветове за класовете */
+            --class8-color: #ff4757;  /* Ярко червено/розово */
+            --class9-color: #00d2d3;  /* Тюркоазено синьо */
+            --class10-color: #2ed573; /* Ярко зелено */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top, #1a1e36 0%, #0b0e17 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Банер / Хедър с изображението */
+        .hero-banner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(108, 92, 231, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Основен контейнер за картите */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+        }
+
+        /* Решетка за картите */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Карта за приложение */
+        .card {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Ивица за съответния клас */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+        }
+
+        .card.class-8::before { background-color: var(--class8-color); }
+        .card.class-9::before { background-color: var(--class9-color); }
+        .card.class-10::before { background-color: var(--class10-color); }
+
+        /* Значка за класа */
+        .badge {
+            font-family: 'Fredoka', cursive;
+            padding: 6px 18px;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .class-8 .badge { background-color: var(--class8-color); }
+        .class-9 .badge { background-color: var(--class9-color); }
+        .class-10 .badge { background-color: var(--class10-color); }
+
+        .card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-weight: 800;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Контейнер за QR код */
+        .qr-container {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            border: 2px dashed #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-container img {
+            width: 130px;
+            height: 130px;
+            border-radius: 8px;
+        }
+
+        .qr-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Бутон за отваряне */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 14px;
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .class-8 .btn { background-color: var(--class8-color); }
+        .class-9 .btn { background-color: var(--class9-color); }
+        .class-10 .btn { background-color: var(--class10-color); }
+
+        /* Футър */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка с вашето изображение -->
+    <header class="hero-banner">
+        <img src="1111.png" alt="Физика и астрономия - Автор: Христинка Божикова">
+    </header>
+
+    <!-- Грид с приложенията -->
+    <div class="container">
+        <div class="grid">
+
+            <!-- 8. КЛАС - МЕХАНИКА -->
+            <div class="card class-8">
+                <span class="badge">8. Клас</span>
+                <h2>Механика</h2>
+                <p>Интерактивни упражнения, формули и задачи по механика за 8. клас.</p>
+                
+                <div class="qr-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://fizika-8-mehanika.netlify.app/" alt="QR Механика">
+                    <div class="qr-label">Сканирай с телефон</div>
+                </div>
+
+                <a href="https://fizika-8-mehanika.netlify.app/" target="_blank" class="btn">Отвори Приложението</a>
+            </div>
+
+            <!-- 8. КЛАС - ТОПЛИННИ ЯВЛЕНИЯ -->
+            <div class="card class-8">
+                <span class="badge">8. Клас</span>
+                <h2>Топлинни Явления</h2>
+                <p>Учебни материали, процеси и симулации за топлинните явления.</p>
+                
+                <div class="qr-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://8-toplinni-yavlenia.netlify.app/" alt="QR Топлинни явления">
+                    <div class="qr-label">Сканирай с телефон</div>
+                </div>
+
+                <a href="https://8-toplinni-yavlenia.netlify.app/" target="_blank" class="btn">Отвори Приложението</a>
+            </div>
+
+            <!-- 8. КЛАС - КАЛКУЛАТОР СКОРОСТ И УСКОРЕНИЕ -->
+            <div class="card class-8">
+                <span class="badge">8. Клас</span>
+                <h2>Калкулатор Скорост и Ускорение</h2>
+                <p>Интерактивен калкулатор за бързо изчисляване на скорост, ускорение и път.</p>
+                
+                <div class="qr-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://kalkulatorskorostuskorenie8klas.netlify.app/" alt="QR Калкулатор">
+                    <div class="qr-label">Сканирай с телефон</div>
+                </div>
+
+                <a href="https://kalkulatorskorostuskorenie8klas.netlify.app/" target="_blank" class="btn">Отвори Приложението</a>
+            </div>
+
+            <!-- 9. КЛАС - ЕЛЕКТРИЧЕН ТОК -->
+            <div class="card class-9">
+                <span class="badge">9. Клас</span>
+                <h2>Електричен Ток</h2>
+                <p>Учебен раздел за електричен ток, закони, вериги и практически задачи.</p>
+                
+                <div class="qr-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://fizika-9-elektrichen-tok.netlify.app/" alt="QR Електричен ток">
+                    <div class="qr-label">Сканирай с телефон</div>
+                </div>
+
+                <a href="https://fizika-9-elektrichen-tok.netlify.app/" target="_blank" class="btn">Отвори Приложението</a>
+            </div>
+
+            <!-- 9. КЛАС - ХАРМОНИЧНО ТРЕПТЕНЕ -->
+            <div class="card class-9">
+                <span class="badge">9. Клас</span>
+                <h2>Хармонично Трептене</h2>
+                <p>Интерактивни материали и задачи за механични трептения и вълни.</p>
+                
+                <div class="qr-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://fizika-9-harmonichno-treptene.netlify.app/" alt="QR Хармонично трептене">
+                    <div class="qr-label">Сканирай с телефон</div>
+                </div>
+
+                <a href="https://fizika-9-harmonichno-treptene.netlify.app/" target="_blank" class="btn">Отвори Приложението</a>
+            </div>
+
+            <!-- 10. КЛАС - СВЕТЛИНА И ОПТИКА -->
+            <div class="card class-10">
+                <span class="badge">10. Клас</span>
+                <h2>Светлина и Оптика</h2>
+                <p>Интерактивни уроци и симулации по оптика, закони на отражението и пречупването.</p>
+                
+                <div class="qr-container">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://optika10klasfizizkaiastronomi.netlify.app/" alt="QR Светлина и оптика">
+                    <div class="qr-label">Сканирай с телефон</div>
+                </div>
+
+                <a href="https://optika10klasfizizkaiastronomi.netlify.app/" target="_blank" class="btn">Отвори Приложението</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© Христинка Божикова | Физика и астрономия и информационни технологии</p>
+    </footer>
+
+</body>
+</html>
