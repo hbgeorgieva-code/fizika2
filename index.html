@@ -9,7 +9,7 @@
     <style>
         :root {
             --bg-color: #0b0e17;
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: rgba(255, 255, 255, 0.96);
             --text-main: #1a202c;
             --text-muted: #4a5568;
             
@@ -34,7 +34,7 @@
             min-height: 100vh;
         }
 
-        /* Банер / Хедър с изображението */
+        /* Шапка с изображението без бели полета */
         .hero-banner {
             width: 100%;
             max-width: 1200px;
@@ -42,13 +42,21 @@
             padding: 0 20px;
         }
 
+        .hero-banner-inner {
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden; /* Скрива излишните ръбове */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(108, 92, 231, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #0b0e17;
+            line-height: 0; /* Премахва малките празни разстояния под изображенията */
+        }
+
         .hero-banner img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(108, 92, 231, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            object-fit: cover; /* Запълва площта перфектно */
         }
 
         /* Основен контейнер за картите */
@@ -58,34 +66,15 @@
             padding: 0 20px;
         }
 
-        .carousel-title {
-            text-align: center;
-            margin-bottom: 22px;
-            font-family: 'Fredoka', cursive;
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-        }
-
-        .carousel {
-            position: relative;
-            padding: 0 58px;
-        }
-
+        /* Решетка за картите */
         .grid {
-            display: flex;
-            gap: 24px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            padding: 10px 4px 22px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 30px;
         }
-
-        .grid::-webkit-scrollbar { display: none; }
 
         /* Карта за приложение */
         .card {
-            flex: 0 0 calc((100% - 48px) / 3);
-            scroll-snap-align: start;
             background: var(--card-bg);
             color: var(--text-main);
             border-radius: 24px;
@@ -105,7 +94,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
-        /* Ивица за съответния клас */
+        /* Цветна ивица на всеки клас */
         .card::before {
             content: '';
             position: absolute;
@@ -201,61 +190,6 @@
         .class-9 .btn { background-color: var(--class9-color); }
         .class-10 .btn { background-color: var(--class10-color); }
 
-        .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            width: 46px;
-            height: 46px;
-            border: 0;
-            border-radius: 50%;
-            background: #ffffff;
-            color: #111827;
-            font-size: 1.8rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(0,0,0,.35);
-        }
-
-        .carousel-button.prev { left: 0; }
-        .carousel-button.next { right: 0; }
-
-        .dots {
-            display: flex;
-            justify-content: center;
-            gap: 9px;
-            margin-top: 8px;
-        }
-
-        .dot {
-            width: 11px;
-            height: 11px;
-            border: 0;
-            border-radius: 50%;
-            background: #64748b;
-            cursor: pointer;
-        }
-
-        .dot.active { background: #ffffff; transform: scale(1.25); }
-
-        @media (max-width: 900px) {
-            .card { flex-basis: calc((100% - 24px) / 2); }
-        }
-
-        @media (max-width: 620px) {
-            .container { padding: 0 12px; }
-            .carousel { padding: 0 8px; }
-            .card { flex-basis: 100%; }
-            .carousel-button {
-                width: 40px;
-                height: 40px;
-                background: rgba(255,255,255,.94);
-            }
-            .carousel-button.prev { left: -4px; }
-            .carousel-button.next { right: -4px; }
-        }
-
         /* Футър */
         footer {
             text-align: center;
@@ -269,17 +203,16 @@
 </head>
 <body>
 
-    <!-- Шапка с вашето изображение -->
+    <!-- Банер с изображението -->
     <header class="hero-banner">
-        <img src="1111.png" alt="Физика и астрономия - Автор: Христинка Божикова">
+        <div class="hero-banner-inner">
+            <img src="1111.png" alt="Физика и астрономия - Автор: Христинка Божикова">
+        </div>
     </header>
 
-    <!-- Карусел с приложенията -->
+    <!-- Списък с приложения -->
     <div class="container">
-        <h1 class="carousel-title">Изберете интерактивно приложение</h1>
-        <div class="carousel">
-            <button class="carousel-button prev" type="button" aria-label="Предишно приложение">&#8249;</button>
-            <div class="grid" id="apps-carousel">
+        <div class="grid">
 
             <!-- 8. КЛАС - МЕХАНИКА -->
             <div class="card class-8">
@@ -365,45 +298,12 @@
                 <a href="https://optika10klasfizizkaiastronomi.netlify.app/" target="_blank" class="btn">Отвори Приложението</a>
             </div>
 
-            </div>
-            <button class="carousel-button next" type="button" aria-label="Следващо приложение">&#8250;</button>
         </div>
-        <div class="dots" aria-label="Навигация между приложенията"></div>
     </div>
 
     <footer>
         <p>© Христинка Божикова | Физика и астрономия и информационни технологии</p>
     </footer>
-
-    <script>
-        const track = document.querySelector('#apps-carousel');
-        const cards = [...track.querySelectorAll('.card')];
-        const previous = document.querySelector('.carousel-button.prev');
-        const next = document.querySelector('.carousel-button.next');
-        const dotsBox = document.querySelector('.dots');
-
-        cards.forEach((_, index) => {
-            const dot = document.createElement('button');
-            dot.className = 'dot';
-            dot.type = 'button';
-            dot.setAttribute('aria-label', `Приложение ${index + 1}`);
-            dot.addEventListener('click', () => cards[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' }));
-            dotsBox.appendChild(dot);
-        });
-
-        const dots = [...dotsBox.children];
-        const cardStep = () => cards[0].getBoundingClientRect().width + 24;
-        previous.addEventListener('click', () => track.scrollBy({ left: -cardStep(), behavior: 'smooth' }));
-        next.addEventListener('click', () => track.scrollBy({ left: cardStep(), behavior: 'smooth' }));
-
-        function updateDots() {
-            const index = Math.round(track.scrollLeft / cardStep());
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-        }
-        track.addEventListener('scroll', updateDots, { passive: true });
-        window.addEventListener('resize', updateDots);
-        updateDots();
-    </script>
 
 </body>
 </html>
